@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>كأس العالم للألعاب الإلكترونية</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+    }
+
+    .top-bar {
+      background-color: #000;
+      padding: 10px 20px;
+      color: #fff;
+      border-bottom: 1px solid #222;
+    }
+
+    .hero {
+      background: url('esports.png') no-repeat center center;
+      background-size: cover;
+      height: 400px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-position 0.2s ease;
+    }
+
+    .worldcup-intro {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    .worldcup-intro h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .worldcup-intro hr {
+      width: 80px;
+      border: 2px solid #0d6efd;
+      margin: 10px auto;
+    }
+
+    .about-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 40px 40px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .about-section div {
+      flex: 1 1 45%;
+      min-width: 280px;
+    }
+
+    .arabic {
+      text-align: right;
+      color: #ddd;
+    }
+
+    .english {
+      text-align: left;
+      direction: ltr;
+      color: #ccc;
+    }
+
+    /* صندوق النتائج */
+    #vote-results {
+      display: none;
+      background: #000;
+      padding: 20px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .progress {
+      background-color: #333;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      height: 25px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      line-height: 25px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .teams-section {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px;
+      background: #1a1a1a;
+      flex-wrap: wrap;
+    }
+
+    .team-box {
+      position: relative;
+      flex: 1 1 300px;
+      max-width: 400px;
+      overflow: hidden;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .team-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: brightness(0.5);
+      transition: all 0.3s ease;
+    }
+
+    .team-box:hover {
+      transform: scale(1.05);
+    }
+
+    .team-box:hover img {
+      filter: brightness(1);
+    }
+
+    .info {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      text-align: center;
+    }
+
+    .vote-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #0d6efd;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .vote-btn:hover {
+      background: #0a58ca;
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    .vote-btn:disabled {
+      background: #198754;
+      cursor: not-allowed;
+    }
+
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+    }
+
+    .socials a {
+      color: #0d6efd;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .about-section,
+      .teams-section {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- الشريط العلوي -->
+  <div class="top-bar d-flex justify-content-between align-items-center px-4">
+    <div style="color: #0d6efd; font-weight: bold;">🎮 كأس العالم</div>
+    <div>
+      <a href="profile.html" class="btn btn-outline-primary text-white">👤 <span id="username">المستخدم</span></a>
+    </div>
+  </div>
+
+  <!-- صورة البطولة -->
+  <section class="hero" id="hero"></section>
+
+  <!-- تعريف البطولة -->
+  <section class="worldcup-intro">
+    <h1>كأس العالم</h1>
+    <span style="color: #aec1d1;">EsportsWorldCup</span>
+    <hr />
+    <div class="about-section">
+      <div class="arabic">
+        <p>كأس العالم للألعاب الإلكترونية هو أكبر حدث في عالم الرياضات الإلكترونية، يجمع أفضل الفرق من جميع أنحاء العالم للتنافس على اللقب العالمي.</p>
+      </div>
+      <div class="english">
+        <p>The Esports World Cup is the biggest event in electronic sports, bringing together the top teams from across the globe to compete for the world title.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- نسب التصويت -->
+  <div id="vote-results">
+    <h4>🔢 نسب التصويت الحالية</h4>
+    <div class="mb-2">Falcons</div>
+    <div class="progress">
+      <div class="progress-bar bg-primary" id="bar-falcons" style="width: 0%">0%</div>
+    </div>
+    <div class="mb-2">Power</div>
+    <div class="progress">
+      <div class="progress-bar bg-success" id="bar-power" style="width: 0%">0%</div>
+    </div>
+    <div class="mb-2">Twisted Minds</div>
+    <div class="progress">
+      <div class="progress-bar bg-warning text-dark" id="bar-twisted" style="width: 0%">0%</div>
+    </div>
+  </div>
+
+  <!-- الفرق -->
+  <section class="teams-section">
+    <div class="team-box">
+      <img src="channels4_profile.jpg" alt="Falcon" />
+      <button class="vote-btn" onclick="vote('falcons', this)">صوت لـ Falcons</button>
+      <div class="info">
+        <h4>Falcons</h4>
+        <p>فريق محترف يتمتع بخبرة واسعة في البطولات العالمية للألعاب الإلكترونية.</p>
+      </div>
+    </div>
+    <div class="team-box">
+      <img src="950_50e7ce16ac.jpg" alt="Power" />
+      <button class="vote-btn" onclick="vote('power', this)">صوت لـ Power</button>
+      <div class="info">
+        <h4>Power</h4>
+        <p>يُعد من الفرق الرائدة في المنطقة، ويتميز بأداء قوي في معظم الألعاب.</p>
+      </div>
+    </div>
+    <div class="team-box">
+      <img src="تصميم بدون عنوان (2).png" alt="Twisted Minds" />
+      <button class="vote-btn" onclick="vote('twisted', this)">صوت لـ Twisted Minds</button>
+      <div class="info">
+        <h4>Twisted Minds</h4>
+        <p>فريق سعودي محترف في الرياضات الإلكترونية، يُعد من أبرز الفرق في الشرق الأوسط.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- التذييل -->
+  <footer>
+    <p>حسابات البطولة:</p>
+    <div class="socials">
+      <a href="https://x.com/EWC_Festival">@EsportsWorldCup</a>
+    </div>
+  </footer>
+
+  <script>
+    const hero = document.querySelector('.hero');
+    hero.addEventListener('mousemove', (e) => {
+      const { width, height } = hero.getBoundingClientRect();
+      const x = e.clientX / width * 100;
+      const y = e.clientY / height * 100;
+      hero.style.backgroundPosition = `${x}% ${y}%`;
+    });
+    hero.addEventListener('mouseleave', () => {
+      hero.style.backgroundPosition = 'center';
+    });
+
+    function vote(team, btn) {
+      if (localStorage.getItem('votedTeam')) {
+        alert('لقد قمت بالتصويت مسبقًا!');
+        return;
+      }
+
+      localStorage.setItem('votedTeam', team);
+      btn.innerText = 'تم التصويت ✅';
+      btn.disabled = true;
+
+      document.querySelectorAll('.vote-btn').forEach(button => {
+        if (button !== btn) button.disabled = true;
+      });
+
+      const votes = JSON.parse(localStorage.getItem('votes')) || {
+        falcons: 0,
+        power: 0,
+        twisted: 0
+      };
+
+      votes[team]++;
+      localStorage.setItem('votes', JSON.stringify(votes));
+
+      showResults();
+    }
+
+    function showResults() {
+      const votes = JSON.parse(localStorage.getItem('votes')) || {
+        falcons: 0,
+        power: 0,
+        twisted: 0
+      };
+      const total = votes.falcons + votes.power + votes.twisted;
+      if (total === 0) return;
+
+      const percent = {
+        falcons: (votes.falcons / total * 100).toFixed(1),
+        power: (votes.power / total * 100).toFixed(1),
+        twisted: (votes.twisted / total * 100).toFixed(1)
+      };
+
+      document.getElementById('vote-results').style.display = 'block';
+      document.getElementById('bar-falcons').style.width = `${percent.falcons}%`;
+      document.getElementById('bar-power').style.width = `${percent.power}%`;
+      document.getElementById('bar-twisted').style.width = `${percent.twisted}%`;
+
+      document.getElementById('bar-falcons').innerText = `${percent.falcons}%`;
+      document.getElementById('bar-power').innerText = `${percent.power}%`;
+      document.getElementById('bar-twisted').innerText = `${percent.twisted}%`;
+    }
+
+    if (localStorage.getItem('votedTeam')) {
+      showResults();
+    }
+  </script>
+</body>
+</html>
